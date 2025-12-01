@@ -21,6 +21,7 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation(libs.kotlin.stdlib)
 	implementation(libs.kotlinx.coroutines)
 	implementation(libs.springframework.boot.starter.web)
