@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: snowflake-id-generator
+  name: snowflake-pod
 spec:
   containers:
-    - name: snowflake-id-generator
-      image: snowflake:1.1
+    - name: snowflake-pod
+      image: snowflake:1.2
       livenessProbe:
         httpGet:
           path: /actuator/health/liveness
