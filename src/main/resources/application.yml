@@ -23,3 +23,10 @@ management:
       show-components: always
       probes:
         enabled: true
+logging:
+  level:
+    root: DEBUG
+    io.maksymdobrynin.snowflakegenerator: DEBUG
+    org.springframework.web: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] [Pod: ${HOSTNAME}] %-5level %logger{36} - %msg%n"
