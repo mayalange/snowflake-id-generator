@@ -19,10 +19,25 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
+          volumeMounts:
+            - name: snowflake-config-volume
+              mountPath: /config
+              readOnly: true
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: SPRING_CONFIG_LOCATION
+              value: "file:/config/application.properties"
+          envFrom:
+            - configMapRef:
+                name: snowflake-config
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
+              scheme: HTTP
             initialDelaySeconds: 15
             timeoutSeconds: 2
             periodSeconds: 20
@@ -31,8 +46,16 @@ spec:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
+              scheme: HTTP
             initialDelaySeconds: 5
             timeoutSeconds: 1
             periodSeconds: 5
             failureThreshold: 3
             successThreshold: 1
+      volumes:
+        - name: snowflake-config-volume
+          configMap:
+            name: snowflake-config
+            items:
+              - key: application.properties
+                path: application.properties
