@@ -1,12 +1,19 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: snowflake-replica-set
+  name: snowflake-deployment
+  annotations:
+    kubernetes.io/change-cause: "Update to x.y.z"
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: snowflake-id-generator
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+    maxUnavailable: 25%
+    maxSurge: 25%
   template:
     metadata:
       labels:
