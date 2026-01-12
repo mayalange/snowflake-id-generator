@@ -1,6 +1,16 @@
 spring:
   application:
     name: "Snowflake ID Generator"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/snowflake_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 snowflake-settings:
   starting-epoch: 946684800
@@ -23,6 +33,9 @@ management:
       show-components: always
       probes:
         enabled: true
+  health:
+    db:
+      enabled: true
 logging:
   level:
     root: DEBUG
